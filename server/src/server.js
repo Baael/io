@@ -9,11 +9,27 @@
   app.http().io();
 
   app.io.route('join', function(req) {
-    return req.io.join(req.data.room);
+    var id;
+    if (!req.data.room) {
+      return;
+    }
+    id = req.data.room;
+    req.io.join(id);
+    return app.io.room(id).broadcast('rcv', {
+      joined: req.data.sender
+    });
   });
 
   app.io.route('leave', function(req) {
-    return req.io.leave(req.data.room);
+    var id;
+    if (!req.data.room) {
+      return;
+    }
+    id = req.data.room;
+    req.io.leave(id);
+    return app.io.room(id).broadcast('rcv', {
+      left: req.data.sender
+    });
   });
 
   app.io.route('send', function(req) {
@@ -21,11 +37,11 @@
     data = req.data;
     id = data.room;
     delete data.room;
-    return app.io.room(id).broadcast('recv', data);
+    return app.io.room(id).broadcast('rcv', data);
   });
 
-  app.use(express["static"]('./downloads'));
+  app.use(express["static"]('./public'));
 
-  app.listen(5555);
+  app.listen(5556);
 
 }).call(this);
