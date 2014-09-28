@@ -27,19 +27,19 @@ class Main
     io = new wojak.IO({ host: 'http://test.tsw:5555' })
 
     io.join("test_room")
-    io.onReceive.Connect(whenDataCame)
+    io.onReceive.Connect(ioDataReceived)
 
     var command = DistributedValue.Create("testing_io");
-    command.SetValue(null)
-    command.SignalChanged.Connect(onTestCmd)
+    command.SetValue(1)
+    command.SignalChanged.Connect(testCommandCallback)
 
   }
 
-  public static function onTestCmd(data):Void {
+  public static function testCommandCallback(data):Void {
     io.emit({current_game_time: UtilsBase.GetGameTime()})
   }
 
-  public static function whenDataCame(data):Void {
+  public static function ioDataReceived(data):Void {
     for(var prop in data){
       UtilsBase.PrintChatText(prop.toString() +": "+data[prop].toString())
     }
@@ -47,5 +47,12 @@ class Main
 
 }
 
+
+```
+
+
+```
+
+/setoption testing_io !testing_io
 
 ```
