@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    io = io.connect()
+    io.on('rcv', function(data) { window.location.hash =  "rcv?"+JSON.stringify(data)  })
+    window.onhashchange = function(){
+        var res = /\#(\w+)\/(\d+\.\d+)\?(.*)/.exec(window.location.hash)
+        if (!res || res[1] == "rcv?") return;
+        io.emit(res[1], JSON.parse(res.pop()))
+    }
+    onhashchange()
+  </script>
+</head>
+<body>
+
+
+</body>
+</html>
