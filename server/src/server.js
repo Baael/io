@@ -23,7 +23,10 @@
     if (!req.data.r) {
       return;
     }
-    return req.io.join(req.data.r);
+    req.io.join(req.data.r);
+    return app.io.room(req.data.r).broadcast('rcv', {
+      joined: req.data.v
+    });
   });
 
   app.io.route('leave', function(req) {

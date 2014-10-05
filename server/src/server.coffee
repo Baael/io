@@ -13,6 +13,7 @@ app.io.route 'proxy', (req)->
 app.io.route 'join', (req)->
     return if (!req.data.r)
     req.io.join(req.data.r)
+    app.io.room(req.data.r).broadcast 'rcv', {joined: req.data.v}
 
 # leave channel
 app.io.route 'leave', (req)->
