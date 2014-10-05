@@ -1,0 +1,107 @@
+<html>
+<head>
+<script type="text/javascript" src="/sitemedia/js/jquery-1.6.min.js"></script>
+<script type="text/javascript" src="/sitemedia/js/loc_strings.js"></script>
+<script type="text/javascript">
+var language='en';
+</script>
+<style type="text/css">
+                        @font-face {
+                                font-family: 'Futura';
+                                src: url('/sitemedia/font/fut.eot');
+                                src: url('/sitemedia/font/fut.eot?#iefix') format('eot'),
+                                url('/sitemedia/font/fut.woff') format('woff'),
+                                url('/sitemedia/font/fut.ttf') format('truetype');
+                                font-weight: normal;
+                                font-style: normal;
+                        }
+			body{
+				margin:0;
+                                font-family : Futura;
+				padding:0;
+				color: #fff;
+			}
+			input{
+                                font-family : Futura;
+				width: 100%;
+				height: 31px;
+			}
+
+			.headline{
+				margin-bottom: 10px;
+			}
+
+			.container{
+				width: 780px;
+				height: 700px;
+				position: fixed;
+				background-image: url("/sitemedia/images_new/background.png");
+			}
+
+			.content{
+				width: 282px;
+				height: 186px;
+				position: relative;			
+				left: 50%;
+				top: 50%;
+				margin-left: -141px;
+				margin-top: -93px;
+				text-align: center;
+			}
+
+			.un > img, .pw > img{
+				margin: 7px 0;
+			}
+
+			.un, .pw{
+				margin: 5px 0;
+			}
+
+			button{
+				background-color: #000;
+				border: 0;
+				margin: 15px;
+				width: 122px;
+				height: 28px;
+			}
+
+			.submit_de{
+				background-image: url("/sitemedia/images_new/button_login_de.png");
+			}
+			.submit_fr{
+				background-image: url("/sitemedia/images_new/button_login_fr.png");
+			}
+			.submit_en{
+				background-image: url("/sitemedia/images_new/button_login_en.png");
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="content">
+				<div class="headline">
+					<img src="/sitemedia/images_new/label_login_en.png" id="header" />
+				</div>
+				<form method="POST">
+					<div class="un">
+						<img src="/sitemedia/images_new/label_username_en.png" id="login" />
+						<input type="text" name="nickname" />
+					</div>
+					<div class="pw">
+						<img src="/sitemedia/images_new/label_password_en.png" id="password" />
+						<input type="password" name="password" />
+					</div>
+					<div class="submit">
+						<button class="submit_en" id="submit" type="submit"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+        <script type="text/javascript">
+        translate_attr('/sitemedia/images_new/label_login_en.png', 'header', 'src');
+        translate_attr('/sitemedia/images_new/label_username_en.png', 'login', 'src');
+        translate_attr('/sitemedia/images_new/label_password_en.png', 'password', 'src');
+        translate_attr('submit_en', 'submit', 'class');
+        </script>
+	</body>
+</html>

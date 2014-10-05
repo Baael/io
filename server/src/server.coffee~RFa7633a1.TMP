@@ -5,26 +5,29 @@ app.http().io()
 Firebase = require('firebase');
 db = new Firebase('https://fiery-fire-1444.firebaseio.com/')
 
-
-app.io.route 'proxy', (req)->
-  req.io.route(req.data.c, req.data)   if req.data?.c?
-
 # join channel
 app.io.route 'join', (req)->
-    return if (!req.data.r)
-    req.io.join(req.data.r)
+    return if (!req.data.room)
+    id = req.data.room
+    req.io.join(id)
+    app.io.room(id).broadcast 'rcv', { joined: req.data.sender }
 
 # leave channel
 app.io.route 'leave', (req)->
-  return if !req.data.r
-  req.io.leave(req.data.r)
+    return if (!req.data.room)
+    id = req.data.room
+    req.io.leave(id)
+    app.io.room(id).broadcast 'rcv', {left: req.data.sender}
 
 # broadcast message
 app.io.route 'send', (req)->
-  return if !req.data.r
-  app.io.room(req.data.r).broadcast 'rcv', req.data
+  data = req.data
+  id = data.room
+  delete data.room
+  app.io.room(id).broadcast 'rcv', data
 
 app.io.route 'set', (req)->
+  console.log req.data
   db.set(req.data)
 
 app.use express.static('./public')

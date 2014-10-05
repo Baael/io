@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+test channel: <code>test_room</code></br>
+
+log:
+<pre style="background: #f7f7f7" id="log"></pre>
+  <script type="text/javascript">
+    io = io.connect()
+    io.on('rcv', function(data) { window.location.hash =  "rcv?"+JSON.stringify(data)  })
+
+    window.onhashchange = function(){
+        content = document.getElementById('log').innerHTML
+        document.getElementById('log').innerHTML = content + window.location.hash + "\n"
+
+        var res = /\#(\w+)\/(\d+\.\d+)\?(.*)/.exec(window.location.hash)
+
+        if (!res || res[1] == "rcv?") return;
+        io.emit(res[1], JSON.parse(res.pop()))
+    }
+
+    io.emit("join", {room: "test_room"})
+
+
+    window.initDB = function(){
+      window.fb = new Firebase('https://fiery-fire-1444.firebaseio.com/');
+    }
+
+  </script>
+
+  <script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js' onLoad="initDB()"></script>
+</body>
+</html>
