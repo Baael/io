@@ -25,8 +25,10 @@
     }
     req.io.join(req.data.r);
     return app.io.room(req.data.r).broadcast('rcv', {
-      joined: req.data.v,
-      channel: req.data.r
+      v: {
+        joined: req.data.v,
+        channel: req.data.r
+      }
     });
   });
 
